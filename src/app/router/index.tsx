@@ -17,7 +17,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route
           index
-          element={true ? <DefaultLayout /> : <Navigate to={'/login'} />}
+          element={false ? <DefaultLayout /> : <Navigate to={'/login'} />}
         />
         <Route
           path='*'
@@ -25,13 +25,9 @@ export const AppRoutes = () => {
         />
         <Route
           path='/'
-          element={<Navigate to={'profile'} />}
+          element={<ProfilePage />}
           children={
             <>
-              <Route
-                index
-                element={<ProfilePage />}
-              />
               <Route
                 path='comparing'
                 element={<ComparingPage />}

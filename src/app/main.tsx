@@ -5,10 +5,11 @@ import { ConfigProvider } from 'antd'
 import { Provider } from 'react-redux'
 import { store } from '../shared/api/store/store'
 import { AppRoutes } from './router'
+import { getTheme } from '../shared/assets/theme/theme'
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
-    <ConfigProvider>
+    <ConfigProvider theme={getTheme()}>
       <Provider store={store}>
         <AppRoutes />
       </Provider>

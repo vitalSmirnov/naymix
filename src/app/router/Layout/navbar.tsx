@@ -1,14 +1,10 @@
-import { Flex } from 'antd'
+import Logo from '../../../shared/assets/logo.svg?react'
 
 export const Navbar = () => {
   return (
-    <Flex
-      justify='space-between'
-      align='center'
-      style={{ padding: '10px 56px' }}
-    >
-      <div>Logo</div>
+    <>
+      <Logo />
       <div>Hr hrович Hrов</div>
-    </Flex>
+    </>
   )
 }
