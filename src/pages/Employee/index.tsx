@@ -1,5 +1,7 @@
+import { UserAddWidget } from '../../widgets/UserProfile'
+
 const EmployeePage = () => {
-  return <></>
+  return <UserAddWidget employee />
 }
 
 export default EmployeePage
