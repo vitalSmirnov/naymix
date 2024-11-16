@@ -1,6 +1,6 @@
 import { AstroType } from '../astro/astro'
 import { LocationType } from '../location/location'
-import { TeamType } from '../team/team'
+import { TeamShortType } from '../team/team'
 
 export type UserType = {
   id: string
@@ -10,7 +10,7 @@ export type UserType = {
   email: string
   phone: string
   status: string
-  team: TeamType
+  team: TeamShortType
   position: string
   astro: AstroType
 }

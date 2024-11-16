@@ -1,5 +1,4 @@
-import { EmployeeType } from '../users/employee'
-import { MemberType } from '../users/member'
+import { EmployeeType, MemberType } from '../users/employee'
 
 export type TeamType = {
   id: string
@@ -7,4 +6,10 @@ export type TeamType = {
   description: string
   employees: EmployeeType[]
   applicants: MemberType[]
+}
+
+export type TeamShortType = {
+  id: string
+  name: string
+  description: string
 }
