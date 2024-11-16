@@ -1,5 +1,5 @@
-import { AstroType } from '../astro'
-import { LocationType } from '../location'
+import { AstroType } from '../astro/astro'
+import { LocationType } from '../location/location'
 import { TeamType } from '../team/team'
 
 export type UserType = {
