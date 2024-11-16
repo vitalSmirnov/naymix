@@ -1,5 +1,7 @@
+import { ProfileWidget } from '../../widgets/Profile'
+
 const ProfilePage = () => {
-  return <></>
+  return <ProfileWidget />
 }
 
 export default ProfilePage

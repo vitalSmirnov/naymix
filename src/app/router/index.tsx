@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { DefaultLayout } from './Layout'
+import { RoutesEnum } from './routes.ts'
 
 const LoginPage = lazy(() => import('../../pages/Login/index.tsx'))
 const RegistrationPage = lazy(() => import('../../pages/Registration/index.tsx'))
@@ -17,11 +18,11 @@ export const AppRoutes = () => {
       <Routes>
         <Route
           index
-          element={false ? <DefaultLayout /> : <Navigate to={'/login'} />}
+          element={false ? <DefaultLayout /> : <Navigate to={RoutesEnum.LOGIN} />}
         />
         <Route
           path='*'
-          element={<Navigate to={'profile'} />}
+          element={<Navigate to={RoutesEnum.DEFAULT} />}
         />
         <Route
           path='/'
@@ -29,34 +30,42 @@ export const AppRoutes = () => {
           children={
             <>
               <Route
-                path='comparing'
+                path={RoutesEnum.COMPARING}
                 element={<ComparingPage />}
               />
               <Route
-                path='team'
+                path={RoutesEnum.TEAM}
                 element={<TeamPage />}
               />
               <Route
-                path='team/add'
+                path={RoutesEnum.ADD_TEAM}
                 element={<AddTeamPage />}
               />
               <Route
-                path='team/member/:id'
+                path={RoutesEnum.APPLICANT}
                 element={<MemberPage />}
               />
               <Route
-                path='team/employee/:id'
+                path={RoutesEnum.EMPLOYEE}
+                element={<EmployeePage />}
+              />
+              <Route
+                path={RoutesEnum.ADD_APPLICANT}
+                element={<EmployeePage />}
+              />
+              <Route
+                path={RoutesEnum.ADD_EMPLOYEE}
                 element={<EmployeePage />}
               />
             </>
           }
         />
         <Route
-          path='/login'
+          path={RoutesEnum.LOGIN}
           element={<LoginPage />}
         />
         <Route
-          path='/signin'
+          path={RoutesEnum.SIGNIN}
           element={<RegistrationPage />}
         />
       </Routes>

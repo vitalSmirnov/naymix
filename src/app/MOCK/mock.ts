@@ -1,3 +1,4 @@
+import { TeamShortType } from '../../entity/types/team/team'
 import { UserType } from '../../entity/types/users/employee'
 
 export const users: UserType[] = [
@@ -135,5 +136,33 @@ export const users: UserType[] = [
         decision_making_compatibility: 8,
       },
     },
+  },
+]
+
+export const teams: TeamShortType[] = [
+  {
+    id: 'team1',
+    name: 'Development',
+    description: 'Frontend and Backend Development Team',
+  },
+  {
+    id: 'team2',
+    name: 'Marketing',
+    description: 'Marketing and Advertising Team',
+  },
+  {
+    id: 'team3',
+    name: 'Sales',
+    description: 'International Sales Team',
+  },
+  {
+    id: 'team4',
+    name: 'HR',
+    description: 'Human Resources Department',
+  },
+  {
+    id: 'team5',
+    name: 'Operations',
+    description: 'Operations and Logistics Team',
   },
 ]

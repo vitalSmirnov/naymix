@@ -1,19 +1,19 @@
 import { List } from 'antd'
 import { Link } from 'react-router-dom'
-import { TeamShortType } from '../../../types/team/team'
+import { MemberType } from '../../../types/users/employee'
 
-type TeamItemProps = {
-  team: Pick<TeamShortType, 'name' | 'id'>
+type ApplicantItemProps = {
+  user: Pick<MemberType, 'full_name' | 'id'>
 }
 
-export const TeamItem = ({ team: { name, id } }: TeamItemProps) => {
+export const ApplicantItem = ({ user: { full_name, id } }: ApplicantItemProps) => {
   return (
     <List.Item>
       <Link
         style={{ textDecoration: 'none', color: 'white', fontWeight: 'medium' }}
         to={`/teams/${id}`}
       >
-        {name}
+        {full_name}
       </Link>
     </List.Item>
   )
