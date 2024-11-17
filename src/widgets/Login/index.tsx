@@ -1,16 +1,27 @@
 import { Button, Form, Input, Typography } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import { Container } from '../../shared/ui/Container'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { LoginCredentials } from '../../entity/types/credentials/loginCredentials'
+import { RoutesEnum } from '../../app/router/routes'
+import { useLoginMutation } from '../../shared/api/querries/auth/authQuery'
 
 const { Title, Text } = Typography
 
 export const LoginWidget = () => {
   const [form] = useForm()
+  const [trigger] = useLoginMutation()
+  const navigate = useNavigate()
 
   const onFinish = (values: LoginCredentials) => {
-    console.log(values)
+    trigger(values).then(response => {
+      if (response.error) {
+        form.resetFields()
+      } else {
+        sessionStorage.setItem('accessToken', response.data.access_token)
+        navigate(RoutesEnum.DEFAULT)
+      }
+    })
   }
 
   return (
@@ -45,7 +56,7 @@ export const LoginWidget = () => {
               {
                 required: true,
                 message: 'Введите пароль',
-                min: 12,
+                min: 6,
               },
             ]}
           >
@@ -61,9 +72,11 @@ export const LoginWidget = () => {
             </Button>
           </Form.Item>
         </Form>
-        <Text>
-          Ещё нет аккаунта? <Link to='/register'>Регистрация</Link>
-        </Text>
+        <span style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <Text>
+            Ещё нет аккаунта? <Link to={RoutesEnum.SIGNIN}>Регистрация</Link>
+          </Text>
+        </span>
       </Container>
     </div>
   )

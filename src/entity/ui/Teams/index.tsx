@@ -1,23 +1,31 @@
-import { List } from 'antd'
-import { teams } from '../../../app/MOCK/mock'
+import { List, Spin } from 'antd'
 import { TeamItem } from './TeamItem'
+import { useGetTeamsQuery } from '../../../shared/api/querries/team/teamQuery'
 
 type TeamsProps = {
   searchString: string
 }
 
 export const Teams = ({ searchString }: TeamsProps) => {
-  const data = teams.filter(user => user.name.toLowerCase().includes(searchString.toLowerCase()))
+  const { data, isLoading } = useGetTeamsQuery({})
+
+  if (isLoading) {
+    return <Spin />
+  }
   return (
-    <List bordered={false}>
-      {data.map(item => {
-        return (
-          <TeamItem
-            key={item.id}
-            team={item}
-          />
-        )
-      })}
+    <List
+      style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+      bordered={false}
+    >
+      {data &&
+        data.teams.map(item => {
+          return (
+            <TeamItem
+              key={item.id}
+              team={item}
+            />
+          )
+        })}
     </List>
   )
 }

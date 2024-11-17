@@ -1,34 +1,32 @@
-import { Button, Form, Input, Select, Typography } from 'antd'
+import { Button, Form, Input, Typography } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import { Container } from '../../shared/ui/Container'
-import { Link } from 'react-router-dom'
-import { Option } from 'antd/es/mentions'
+import { Link, useNavigate } from 'react-router-dom'
 import { RegisterCredentials } from '../../entity/types/credentials/registerCredentials'
+import { RoutesEnum } from '../../app/router/routes'
+import { useRegisterMutation } from '../../shared/api/querries/auth/authQuery'
 
 const { Title, Text } = Typography
 
-const prefixSelector = (
-  <Form.Item
-    name='prefix'
-    noStyle
-  >
-    <Select style={{ width: 70, color: 'black' }}>
-      <Option value='8'>+7</Option>
-    </Select>
-  </Form.Item>
-)
-
 export const RegisterWidget = () => {
   const [form] = useForm()
+  const [trigger] = useRegisterMutation()
+  const navigate = useNavigate()
 
   const onFinish = (values: RegisterCredentials) => {
-    console.log(values)
+    trigger(values).then(response => {
+      if (response.error) {
+        form.resetFields()
+      } else {
+        navigate(RoutesEnum.LOGIN)
+      }
+    })
   }
 
   return (
     <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Container>
-        <Title level={3}>Вход</Title>
+        <Title level={3}>Регистрация</Title>
 
         <Form
           onFinish={onFinish}
@@ -36,21 +34,16 @@ export const RegisterWidget = () => {
           layout='vertical'
         >
           <Form.Item
-            name='username'
             label='ФИО'
-            rules={[{ required: true, message: 'Введите своё ФИО!' }]}
+            name='fullName'
+            rules={[
+              {
+                required: true,
+                message: 'Введите ваше ФИО',
+              },
+            ]}
           >
             <Input />
-          </Form.Item>
-          <Form.Item
-            name='phone'
-            label='Телефон'
-            rules={[{ required: true, message: 'Введите номер телефона!' }]}
-          >
-            <Input
-              addonBefore={prefixSelector}
-              style={{ width: '100%' }}
-            />
           </Form.Item>
           <Form.Item
             label='Почта'
@@ -75,7 +68,7 @@ export const RegisterWidget = () => {
               {
                 required: true,
                 message: 'Введите пароль',
-                min: 12,
+                min: 6,
               },
             ]}
           >
@@ -87,13 +80,13 @@ export const RegisterWidget = () => {
               type='primary'
               htmlType='submit'
             >
-              Войти
+              Зарегистрироваться
             </Button>
           </Form.Item>
         </Form>
         <span style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <Text>
-            Уже есть аккаунт? <Link to='/register'>Войти</Link>
+            Уже есть аккаунт? <Link to={RoutesEnum.LOGIN}>Войти</Link>
           </Text>
         </span>
       </Container>

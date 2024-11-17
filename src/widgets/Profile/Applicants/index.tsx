@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import { Teams } from '../../../entity/ui/Teams'
 import { SearchContainer } from '../../../shared/ui/SearchContainer'
 import { useState } from 'react'
 import { RoutesEnum } from '../../../app/router/routes'
+import { Applicants } from '../../../entity/ui/Applicants'
 
 export const AplllicantsWidget = () => {
   const navigate = useNavigate()
@@ -21,7 +21,7 @@ export const AplllicantsWidget = () => {
       searchCallback={handleSearch}
       buttonString='Добавить нового соискателя'
     >
-      <Teams searchString={searchValue} />
+      <Applicants searchString={searchValue} />
     </SearchContainer>
   )
 }

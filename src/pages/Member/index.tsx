@@ -1,4 +1,4 @@
-import { UserAddWidget } from '../../widgets/UserProfile'
+import { UserAddWidget } from '../../features/UserProfile'
 
 const MemberPage = () => {
   return <UserAddWidget />

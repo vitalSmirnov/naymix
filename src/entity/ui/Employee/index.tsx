@@ -8,7 +8,7 @@ type EmployeeCollapseProps = {
 }
 
 export const EmployeeCollapse = ({ searchString }: EmployeeCollapseProps) => {
-  const data = users.filter(user => user.full_name.toLowerCase().includes(searchString.toLowerCase()))
+  const data = users.filter(user => user.fullName.toLowerCase().includes(searchString.toLowerCase()))
   return (
     <Collapse
       ghost
@@ -17,7 +17,7 @@ export const EmployeeCollapse = ({ searchString }: EmployeeCollapseProps) => {
       {data.map(item => {
         return (
           <Collapse.Panel
-            header={item.full_name}
+            header={item.fullName}
             key={item.id}
           >
             <EmployeeItem

@@ -1,3 +1,3 @@
 export type TokenModel = {
-  token: string
+  access_token: string
 }

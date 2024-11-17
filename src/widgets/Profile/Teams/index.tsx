@@ -3,6 +3,7 @@ import { Teams } from '../../../entity/ui/Teams'
 import { SearchContainer } from '../../../shared/ui/SearchContainer'
 import { useState } from 'react'
 import { RoutesEnum } from '../../../app/router/routes'
+import TeamsIcon from '../../../shared/assets/teams.svg?react'
 
 export const TeamsWidget = () => {
   const navigate = useNavigate()
@@ -16,8 +17,16 @@ export const TeamsWidget = () => {
   return (
     <SearchContainer
       onClick={handleClick}
-      title='Команды'
-      color='yellow'
+      title={
+        <>
+          Команды{' '}
+          <TeamsIcon
+            height={'40px'}
+            width={'40px'}
+          />
+        </>
+      }
+      color='green'
       searchCallback={handleSearch}
       buttonString='Добавить новую команду'
     >

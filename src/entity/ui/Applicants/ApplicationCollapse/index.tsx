@@ -8,7 +8,7 @@ type ApplicantCollapseProps = {
 }
 
 export const ApplicantCollapse = ({ searchString }: ApplicantCollapseProps) => {
-  const data = users.filter(user => user.full_name.toLowerCase().includes(searchString.toLowerCase()))
+  const data = users.filter(user => user.fullName.toLowerCase().includes(searchString.toLowerCase()))
   return (
     <Collapse
       ghost
@@ -17,7 +17,7 @@ export const ApplicantCollapse = ({ searchString }: ApplicantCollapseProps) => {
       {data.map(item => {
         return (
           <Collapse.Panel
-            header={item.full_name}
+            header={item.fullName}
             key={item.id}
           >
             <EmployeeItem

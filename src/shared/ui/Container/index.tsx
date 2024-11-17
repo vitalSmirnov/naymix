@@ -11,6 +11,7 @@ export const Container: React.FC<PropsWithChildren & ContainerProps> = ({ childr
         padding: '64px',
         borderRadius: '28px',
         placeContent: 'center',
+        alignContent: 'start',
         backgroundColor: `${color}`,
         width: '800px',
       }}

@@ -6,32 +6,24 @@ import { RoutesEnum } from './routes.ts'
 const LoginPage = lazy(() => import('../../pages/Login/index.tsx'))
 const RegistrationPage = lazy(() => import('../../pages/Registration/index.tsx'))
 const AddTeamPage = lazy(() => import('../../pages/AddTeam/index.tsx'))
-const ComparingPage = lazy(() => import('../../pages/Comparing/index.tsx'))
 const EmployeePage = lazy(() => import('../../pages/Employee/index.tsx'))
 const MemberPage = lazy(() => import('../../pages/Member/index.tsx'))
 const ProfilePage = lazy(() => import('../../pages/Profile/index.tsx'))
 const TeamPage = lazy(() => import('../../pages/Team/index.tsx'))
 
 export const AppRoutes = () => {
+  const isAuth = sessionStorage.getItem('accessToken') !== undefined
   return (
     <Suspense>
       <Routes>
         <Route
-          index
-          element={false ? <DefaultLayout /> : <Navigate to={RoutesEnum.LOGIN} />}
-        />
-        <Route
-          path='*'
-          element={<Navigate to={RoutesEnum.DEFAULT} />}
-        />
-        <Route
           path='/'
-          element={<ProfilePage />}
+          element={isAuth ? <DefaultLayout /> : <Navigate to={RoutesEnum.LOGIN} />}
           children={
             <>
               <Route
-                path={RoutesEnum.COMPARING}
-                element={<ComparingPage />}
+                path={RoutesEnum.DEFAULT}
+                element={<ProfilePage />}
               />
               <Route
                 path={RoutesEnum.TEAM}
@@ -51,7 +43,7 @@ export const AppRoutes = () => {
               />
               <Route
                 path={RoutesEnum.ADD_APPLICANT}
-                element={<EmployeePage />}
+                element={<MemberPage />}
               />
               <Route
                 path={RoutesEnum.ADD_EMPLOYEE}
@@ -67,6 +59,10 @@ export const AppRoutes = () => {
         <Route
           path={RoutesEnum.SIGNIN}
           element={<RegistrationPage />}
+        />
+        <Route
+          path='*'
+          element={<Navigate to={RoutesEnum.DEFAULT} />}
         />
       </Routes>
     </Suspense>

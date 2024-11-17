@@ -1,5 +1,7 @@
+import { ConcreteTeamsWidget } from '../../widgets/Team'
+
 const TeamPage = () => {
-  return <></>
+  return <ConcreteTeamsWidget />
 }
 
 export default TeamPage

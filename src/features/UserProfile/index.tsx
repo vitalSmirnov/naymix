@@ -3,7 +3,8 @@ import { Container } from '../../shared/ui/Container'
 import { useForm } from 'antd/es/form/Form'
 import { useNavigate } from 'react-router-dom'
 import { Option } from 'antd/es/mentions'
-import { TeamPicker } from '../../features/TeamPicker'
+import { TeamPicker } from '../TeamPicker'
+import { CreateApplicantModel, EmployeeType, UserType } from '../../entity/types/users/employee'
 
 type UserProfileProps = {
   employee?: boolean
@@ -26,18 +27,32 @@ export const UserAddWidget = ({ employee = false }: UserProfileProps) => {
 
   const navigate = useNavigate()
 
-  const onFinish = () => {
+  const onFinish = (e: UserType) => {
+    if (employee) {
+      const payload = e as EmployeeType
+    }
+    {
+      const payload = e as CreateApplicantModel
+    }
     navigate('/profile')
   }
 
   return (
-    <div style={{ backgroundColor: '', width: '100%', height: '100%' }}>
+    <div
+      style={{ backgroundColor: '#F0F6FA', width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}
+    >
       <Container>
-        <Flex gap={'24px'}>
+        <Flex
+          gap={'24px'}
+          justify='center'
+          align='center'
+        >
           <Button onClick={() => navigate(-1)}>Назад</Button>
           <Title>{`Добавление ${employee ? 'сотрудника' : 'соискателя'}`}</Title>
         </Flex>
         <Form
+          layout='vertical'
+          style={{ maxWidth: '800px', width: '100%' }}
           form={form}
           onFinish={onFinish}
         >
@@ -56,7 +71,7 @@ export const UserAddWidget = ({ employee = false }: UserProfileProps) => {
             <Input addonBefore={prefixSelector} />
           </Form.Item>
           <Form.Item
-            name='phone'
+            name='email'
             label='Почта'
             rules={[
               {
@@ -79,25 +94,18 @@ export const UserAddWidget = ({ employee = false }: UserProfileProps) => {
             <Input />
           </Form.Item>
           <Form.Item
-            name='position'
-            label={`${employee ? 'Должность' : 'Ожидаемая должность'}`}
-            rules={[{ required: true, message: 'Введите должность' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
             name='birthDate'
             label={'Дата и время рождения'}
             rules={[{ required: true, message: 'Введите дату рождения' }]}
           >
-            <DatePicker />
+            <DatePicker showTime />
           </Form.Item>
           <Form.Item
             name='birthPlace'
             label={'Город рождения'}
             rules={[{ required: true, message: 'Введите город' }]}
           >
-            <DatePicker />
+            <Input />
           </Form.Item>
           <Form.Item
             name='team'
@@ -105,6 +113,15 @@ export const UserAddWidget = ({ employee = false }: UserProfileProps) => {
             rules={[{ required: true, message: 'Выберите комманду' }]}
           >
             <TeamPicker employee={employee} />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              block
+              type='primary'
+              htmlType='submit'
+            >
+              Добавить
+            </Button>
           </Form.Item>
         </Form>
       </Container>

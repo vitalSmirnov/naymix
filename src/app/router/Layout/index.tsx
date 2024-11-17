@@ -1,12 +1,13 @@
-import { Layout } from 'antd'
-import { PropsWithChildren } from 'react'
+import { Layout, Spin } from 'antd'
+import { Suspense } from 'react'
 import { Navbar } from './navbar'
+import { Outlet } from 'react-router-dom'
 
 const { Header, Content } = Layout
 
-export const DefaultLayout: React.FC<PropsWithChildren> = ({ children }) => {
+export const DefaultLayout = () => {
   return (
-    <Layout style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+    <Layout style={{ width: '100%', height: '100vh', overflow: 'hidden', backgroundColor: 'rgb(240, 246, 250);' }}>
       <Header
         style={{
           width: '100%',
@@ -16,12 +17,25 @@ export const DefaultLayout: React.FC<PropsWithChildren> = ({ children }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          backgroundColor: 'white',
         }}
       >
         <Navbar />
       </Header>
-      <Content style={{ width: '100%', height: '100%' }}>
-        <div>{children}</div>
+      <Content
+        style={{
+          width: '100%',
+          height: '100%',
+          padding: '2rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgb(240, 246, 250)',
+        }}
+      >
+        <Suspense fallback={<Spin />}>
+          <Outlet />
+        </Suspense>
       </Content>
     </Layout>
   )

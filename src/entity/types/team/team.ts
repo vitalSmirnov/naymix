@@ -13,3 +13,8 @@ export type TeamShortType = {
   name: string
   description: string
 }
+
+export type CreateTeamModel = {
+  name: string
+  description: string
+}

@@ -1,15 +1,17 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { BASE_URL } from '../baseUrl'
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: BASE_URL,
   prepareHeaders(headers) {
-    const accessToken = localStorage.getItem('token')
+    const accessToken = sessionStorage.getItem('accessToken')
 
     if (accessToken && !headers.has('Authorization')) {
       headers.set('Authorization', `Bearer ${accessToken}`)
     }
 
     headers.set('Content-Type', 'application/json')
+    headers.set('Connection', 'keep-alive')
 
     return headers
   },
