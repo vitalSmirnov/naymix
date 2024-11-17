@@ -2,7 +2,7 @@ export enum RoutesEnum {
   DEFAULT = '/profile',
   PROFILE = '/profile',
   COMPARING = 'comparing',
-  TEAM = '/team',
+  TEAM = '/team/:id',
   ADD_TEAM = '/team/new',
   ADD_APPLICANT = '/applicant/new',
   ADD_EMPLOYEE = '/employee/new',

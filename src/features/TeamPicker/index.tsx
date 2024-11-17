@@ -1,5 +1,6 @@
-import { Select } from 'antd'
+import { Select, Spin } from 'antd'
 import { TeamShortType } from '../../entity/types/team/team'
+import { useGetTeamsQuery } from '../../shared/api/querries/team/teamQuery'
 
 type TeamPickerProps = {
   employee?: boolean
@@ -19,11 +20,16 @@ const handleChange = (value: string[]) => {
 }
 
 export const TeamPicker = ({ employee = false }: TeamPickerProps) => {
+  const { data, isLoading } = useGetTeamsQuery({})
+
+  if (isLoading) {
+    return <Spin />
+  }
   return (
     <Select
       mode={employee ? 'multiple' : 'tags'}
       allowClear
-      options={teamComparer([])}
+      options={teamComparer(data?.teams!)}
       onChange={handleChange}
     />
   )

@@ -4,7 +4,8 @@ import { useForm } from 'antd/es/form/Form'
 import { useNavigate } from 'react-router-dom'
 import { Option } from 'antd/es/mentions'
 import { TeamPicker } from '../TeamPicker'
-import { CreateApplicantModel, EmployeeType, UserType } from '../../entity/types/users/employee'
+import { UserType } from '../../entity/types/users/employee'
+import { useAddTeamMemberMutation } from '../../shared/api/querries/team/teamQuery'
 
 type UserProfileProps = {
   employee?: boolean
@@ -25,14 +26,16 @@ const prefixSelector = (
 export const UserAddWidget = ({ employee = false }: UserProfileProps) => {
   const [form] = useForm()
 
+  const [trigger] = useAddTeamMemberMutation({})
+
   const navigate = useNavigate()
 
   const onFinish = (e: UserType) => {
     if (employee) {
-      const payload = e as EmployeeType
+      trigger({ teamId: e.team.id, body: { ...e, role: 'employee', birthPlace: e.birthPlace } })
     }
     {
-      const payload = e as CreateApplicantModel
+      trigger({ teamId: e.team.id, body: { ...e, role: 'pending', birthPlace: e.birthPlace } })
     }
     navigate('/profile')
   }

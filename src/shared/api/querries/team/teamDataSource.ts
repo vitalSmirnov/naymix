@@ -1,6 +1,4 @@
-import { CreateTeamModel, TeamShortType } from '../../../../entity/types/team/team'
-import { EmployeeType, MemberType } from '../../../../entity/types/users/employee'
-
+import { CreateTeamModel, TeamShortType, TeamType } from '../../../../entity/types/team/team'
 export type GetTeamsPayload = {
   limit?: number
   offset?: number
@@ -12,13 +10,27 @@ export type GetMembresPayload = {
   teamId: string
 }
 export type GetMembresResponse = {
-  employees: EmployeeType[]
-  applicants: MemberType[]
+  success: boolean
+  team: TeamType
 }
 export type CreateTeamPayload = CreateTeamModel
-export type CreateTeamResponse = {}
+export type CreateTeamResponse = {
+  succsess: boolean
+  message: string
+}
 export type AddTeamMemberPayload = {
   teamId: string
-  body: CreateTeamModel
+  body: {
+    fullName: string
+    birthDate: string
+    birthPlace: string
+    email: string
+    phone: string
+    position: string
+    role: 'pending' | 'employee'
+  }
 }
-export type AddTeamMemberResponse = {}
+export type AddTeamMemberResponse = {
+  succsess: boolean
+  message: string
+}

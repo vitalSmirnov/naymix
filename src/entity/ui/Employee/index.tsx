@@ -1,14 +1,14 @@
 import { Collapse } from 'antd'
-import { users } from '../../../app/MOCK/mock'
 import { EmployeeItem } from './EmployeeItem'
 import { RoutesEnum } from '../../../app/router/routes'
+import { EmployeeType } from '../../types/users/employee'
 
 type EmployeeCollapseProps = {
   searchString: string
+  data: EmployeeType[]
 }
 
-export const EmployeeCollapse = ({ searchString }: EmployeeCollapseProps) => {
-  const data = users.filter(user => user.fullName.toLowerCase().includes(searchString.toLowerCase()))
+export const EmployeeCollapse = ({ searchString, data }: EmployeeCollapseProps) => {
   return (
     <Collapse
       ghost

@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import {
   AddTeamMemberPayload,
   AddTeamMemberResponse,
@@ -34,7 +34,7 @@ export const teamApi = createApi({
     }),
     AddTeamMember: builder.mutation<AddTeamMemberResponse, AddTeamMemberPayload>({
       query: ({ teamId, body }) => ({
-        url: `teams/add/${teamId}/members`,
+        url: `members/${teamId}/create`,
         method: 'POST',
         body,
       }),

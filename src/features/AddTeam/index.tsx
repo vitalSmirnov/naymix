@@ -3,16 +3,24 @@ import { Container } from '../../shared/ui/Container'
 import { useForm } from 'antd/es/form/Form'
 import { useNavigate } from 'react-router-dom'
 import { CreateTeamModel } from '../../entity/types/team/team'
+import { useCreateTeamMutation } from '../../shared/api/querries/team/teamQuery'
+import { RoutesEnum } from '../../app/router/routes'
 
 const { Title } = Typography
 
 export const TeamAddWidget = () => {
   const [form] = useForm()
-
+  const [trigger] = useCreateTeamMutation({})
   const navigate = useNavigate()
 
   const onFinish = (e: CreateTeamModel) => {
-    navigate('/profile')
+    trigger(e).then(response => {
+      if (response.error) {
+        console.log('suck')
+      } else {
+        navigate(RoutesEnum.DEFAULT)
+      }
+    })
   }
 
   return (

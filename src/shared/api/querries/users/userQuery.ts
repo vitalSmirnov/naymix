@@ -1,24 +1,28 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
-import { baseQuery } from '../index.tsx'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { GetMemberPayload, GetMemberResponse } from './userDataSource.ts'
+import { BASE_URL } from '../../baseUrl.ts'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: baseQuery,
+  baseQuery: fetchBaseQuery({
+    baseUrl: BASE_URL,
+    prepareHeaders(headers) {
+      const accessToken = sessionStorage.getItem('accessToken')
+
+      if (accessToken && !headers.has('Authorization')) {
+        headers.set('Authorization', `Bearer ${accessToken}`)
+      }
+
+      return headers
+    },
+  }),
   tagTypes: ['Post', 'Team'],
   endpoints: builder => ({
-    GetTeams: builder.query<GetTeamsResponse, GetTeamsPayload>({
-      query: () => ``,
+    GetMember: builder.query<GetMemberResponse, GetMemberPayload>({
+      query: ({ memberId }) => `members/${memberId}`,
       providesTags: ['Post'],
-    }),
-    CreateTeam: builder.mutation<CreateTeamResponse, CreateTeamPayload>({
-      query: body => ({
-        url: `create`,
-        method: 'POST',
-        body,
-      }),
-      invalidatesTags: ['Post'],
     }),
   }),
 })
 
-export const {} = userApi
+export const { useGetMemberQuery } = userApi

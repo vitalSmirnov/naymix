@@ -10,9 +10,6 @@ export const baseQuery = fetchBaseQuery({
       headers.set('Authorization', `Bearer ${accessToken}`)
     }
 
-    headers.set('Content-Type', 'application/json')
-    headers.set('Connection', 'keep-alive')
-
     return headers
   },
 })

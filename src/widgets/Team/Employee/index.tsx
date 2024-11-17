@@ -3,8 +3,13 @@ import { SearchContainer } from '../../../shared/ui/SearchContainer'
 import { useState } from 'react'
 import { RoutesEnum } from '../../../app/router/routes'
 import { EmployeeCollapse } from '../../../entity/ui/Employee'
+import { EmployeeType } from '../../../entity/types/users/employee'
 
-export const EmployeeWidget = () => {
+type Props = {
+  data: EmployeeType[]
+}
+
+export const EmployeeWidget = ({ data }: Props) => {
   const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState<string>('')
   const handleSearch = (value: string) => {
@@ -21,7 +26,10 @@ export const EmployeeWidget = () => {
       searchCallback={handleSearch}
       buttonString='Добавить сотрудника'
     >
-      <EmployeeCollapse searchString={searchValue} />
+      <EmployeeCollapse
+        data={data}
+        searchString={searchValue}
+      />
     </SearchContainer>
   )
 }
